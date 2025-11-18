@@ -886,12 +886,32 @@
       window.open(url, "_blank");
       closeContactModal();
     }
+    function fadeOutElementById(elementId) {
+        const element = document.getElementById(elementId);
+
+        if (!element) {
+            console.warn(`Element with ID "${elementId}" not found.`);
+            return;
+        }
+
+        let opacity = 1; // Start with full opacity
+        const fadeInterval = setInterval(() => {
+            if (opacity > 0) {
+            opacity -= 0.1; // Decrease opacity
+            element.style.opacity = opacity;
+            } else {
+            clearInterval(fadeInterval); // Stop the interval when fully faded
+            element.style.display = 'none'; // Hide the element completely
+            }
+        }, 50); // Adjust the interval time for faster/slower fade
+    }
 
     // ===== 导航 / QR & localStorage 相关 =====
     function scrollToNav() {
       const el = document.getElementById("nav-section");
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
+        fadeOutElementById('map-box');
       }
     }
 
