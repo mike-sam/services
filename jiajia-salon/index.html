@@ -403,7 +403,7 @@
       <p class="muted" id="location-desc">
         请使用下方地图查看大概区域，开启 Google 地图后会显示即时导航、距离与时间。
       </p>
-      <div class="map-box">
+      <div class="map-box" id="map-box">
         <iframe
           loading="lazy"
           allowfullscreen
@@ -903,14 +903,19 @@
             clearInterval(fadeInterval); // Stop the interval when fully faded
             element.style.display = 'none'; // Hide the element completely
             }
-        }, 50); // Adjust the interval time for faster/slower fade
+        }, 25); // Adjust the interval time for faster/slower fade
     }
 
     // ===== 导航 / QR & localStorage 相关 =====
     function scrollToNav() {
       const el = document.getElementById("nav-section");
       if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
+        setTimeout(()=>{
+
+            el.scrollIntoView({ behavior: "smooth" });
+        },250)
+        fadeOutElementById('location-title');
+        fadeOutElementById('location-desc');
         fadeOutElementById('map-box');
       }
     }
@@ -997,6 +1002,9 @@
       try {
         const savedPlate = localStorage.getItem("jiajia_plate");
         if (savedPlate) {
+          fadeOutElementById('location-title');
+          fadeOutElementById('location-desc');
+          fadeOutElementById('map-box');
           const plateInput = document.getElementById("plate-input");
           plateInput.value = savedPlate;
           // 有车牌记录，显示 QR 状态选项
