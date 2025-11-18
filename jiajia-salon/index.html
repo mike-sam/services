@@ -933,17 +933,20 @@
     function openGuardWhatsApp(plate) {
       const t = i18n[currentLang];
       const baseZh =
-        "Hi，麻烦帮我登记 guard QR。%0A车牌：";
+        "Hi，麻烦帮我登记 guard QR。";
       const baseEn =
-        "Hi, please help generate the guard QR for my car. %0ACar Plate: ";
-      const message =
-        currentLang === "zh" ? baseZh + plate : baseEn + plate;
-
+        "Hi, please help generate the guard QR for my car. ";
+      let message =
+        currentLang === "zh" ? baseZh  : baseEn ;
+      message = encodeURIComponent(message);
+      message += '%0A'
+        currentLang === "zh" ?  '车牌：' : 'Car Plate: ' ;
+        message += plate;
       const url =
         "https://wa.me/" +
         JIAJIA_PHONE +
         "?text=" +
-        encodeURIComponent(message);
+        message;
       window.open(url, "_blank");
     }
 
