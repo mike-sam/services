@@ -939,8 +939,8 @@
       let message =
         currentLang === "zh" ? baseZh  : baseEn ;
       message = encodeURIComponent(message);
-      message += '%0A'
-        currentLang === "zh" ?  '车牌：' : 'Car Plate: ' ;
+      message += '%0A' +
+       (currentLang === "zh" ?  '车牌：' : 'Car Plate: ') ;
         message += plate;
       const url =
         "https://wa.me/" +
